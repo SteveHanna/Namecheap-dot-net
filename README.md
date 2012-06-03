@@ -15,7 +15,7 @@ A .NET wrapper for the [Namecheap API](http://www.namecheap.com/support/api/api.
 		Console.WriteLine(domain.DomainName + ": " + domain.IsAvailable);	
 ```
 
-#### Set DNS host records for a given domain.
+### Set DNS host records for a given domain.
 
 ```c#
 	var api = new NameCheapApi("{username}", "{apiUser}", "{apiKey}", "{clientIp}", true);
