@@ -10,7 +10,7 @@ namespace NameCheapTests
     [TestClass]
     public class DnsTests
     {
-        private NameCheapApi _api = new NameCheapApi("{name}", "{name}", "{key}", "{ip}", true);
+        private NameCheapApi _api = new NameCheapApi("{username}", "{apiUser}", "{apiKey}", "{clientIp}", true);
         private string _domainName = "eaba62ff-e035-417a-8760-bd2d33972a25.com";
 
         [TestMethod]
@@ -23,7 +23,7 @@ namespace NameCheapTests
                 HostEntries = new HostEntry[] { new HostEntry() { 
                             Address = "184.72.232.222",
                             HostName = "@",
-                            RecordType =  RecordType.URL
+                            RecordType =  RecordType.A
                 } }
             });
         }
@@ -66,7 +66,7 @@ namespace NameCheapTests
         {
             var hosts = _api.Dns.GetHosts(_domainName.Replace(".com", ""), "com");
             Assert.IsTrue(hosts.IsUsingOurDns);
-            Assert.AreEqual(hosts.HostEntries[0].RecordType, RecordType.URL);
+            Assert.AreEqual(hosts.HostEntries[0].RecordType, RecordType.A);
             Assert.AreEqual(hosts.HostEntries[0].HostName, "@");
         }
 

@@ -7,13 +7,13 @@ using NameCheap;
 
 namespace NameCheapTests
 {
-   // [TestClass]
+    [TestClass]
     public class DomainTests
     {
-        private NameCheapApi _api = new NameCheapApi("{name}", "{name}", "{key}", "{ip}", true);
+        private NameCheapApi _api = new NameCheapApi("{username}", "{apiUser}", "{apiKey}", "{clientIp}", true);
         private string _domainName = "eaba62ff-e035-417a-8760-bd2d33972a25.com";
 
-        //[TestMethod]
+        [TestMethod]
         public void Test_create()
         {
             string domainName = Guid.NewGuid() + ".com";
@@ -78,7 +78,7 @@ namespace NameCheapTests
             Assert.AreEqual(14950, info.ID);
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void Test_renew()
         {
             var result = _api.Domains.Renew(_domainName, 1);
