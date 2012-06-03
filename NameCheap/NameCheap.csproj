@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{928355B6-9F5B-4926-A8F2-22F1E7EF85BE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NameCheap</RootNamespace>
+    <AssemblyName>NameCheap</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DateTimeHelper.cs" />
+    <Compile Include="Dns\DnsApi.cs" />
+    <Compile Include="Dns\DnsEmailForwardingResult.cs" />
+    <Compile Include="Dns\DnsHostResult.cs" />
+    <Compile Include="Dns\DnsListResult.cs" />
+    <Compile Include="Dns\EmailForwarding.cs" />
+    <Compile Include="Dns\DnsHostsRequest.cs" />
+    <Compile Include="Dns\RecordType.cs" />
+    <Compile Include="Domain\Domain.cs" />
+    <Compile Include="Domain\DomainContactsRequest.cs" />
+    <Compile Include="Domain\DomainListResult.cs" />
+    <Compile Include="Domain\DomainReactivateResult.cs" />
+    <Compile Include="Domain\ContactInformation.cs" />
+    <Compile Include="Domain\DomainContactsResult.cs" />
+    <Compile Include="Domain\DomainInfoResult.cs" />
+    <Compile Include="Domain\DomainCheckResult.cs" />
+    <Compile Include="Domain\DomainCreateResult.cs" />
+    <Compile Include="Domain\DomainCreateRequest.cs" />
+    <Compile Include="Domain\DomainRenewResult.cs" />
+    <Compile Include="Domain\DomainsApi.cs" />
+    <Compile Include="Domain\Tld.cs" />
+    <Compile Include="Domain\TldListResult.cs" />
+    <Compile Include="GlobalParameters.cs" />
+    <Compile Include="NameCheapApi.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
