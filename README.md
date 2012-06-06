@@ -11,7 +11,7 @@ A .NET wrapper for the [Namecheap API](http://www.namecheap.com/support/api/api.
 	
 	var domains = api.Domains.AreAvailable("google.com", "ANewDomainName");
 	
-	foreach (var domain in results)
+	foreach (var domain in domains)
 		Console.WriteLine(domain.DomainName + ": " + domain.IsAvailable);	
 ```
 
