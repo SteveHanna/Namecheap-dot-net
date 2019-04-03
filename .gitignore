@@ -54,3 +54,4 @@ ClientBin
 stylecop.*
 ~$*
 *.dbmdl
+.vs/
