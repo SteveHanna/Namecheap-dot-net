@@ -8,54 +8,38 @@ namespace NameCheapTests
     [TestClass]
     public class DomainTests : TestBase
     {
-        [TestMethod, Ignore]
-        public void Test_create()
+        [TestMethod]
+        public void GetContacts_ReturnContactInfoForAllUsers()
         {
-            var info = _api.Domains.GetInfo(_domainName);
+            DomainContactsResult contacts = _api.Domains.GetContacts(_domainName);
 
-            var contact = new ContactInformation()
-            {
-                Address1 = "1 never never land",
-                City = "New York",
-                Country = "US",
-                EmailAddress = "noreply@example.com",
-                FirstName = "Billy",
-                LastName = "Bob",
-                Phone = "+011.5555555555",
-                PostalCode = "l5Z5Z5",
-                StateProvince = "California"
-            };
-
-            var domain = _api.Domains.Create(new DomainCreateRequest()
-            {
-                DomainName = _domainName,
-                Admin = contact,
-                AuxBilling = contact,
-                Registrant = contact,
-                Tech = contact,
-                Years = 1
-            });
-
-            Assert.AreEqual(_domainName, domain.Domain);
+            // TODO: use different names for each type of contact to distinguish between them in testing
+            Assert.AreEqual(contacts.Admin.FirstName, TestUserFirstName);
+            Assert.AreEqual(contacts.Admin.LastName, TestUserLastName);
+            Assert.AreEqual(contacts.AuxBilling.FirstName, TestUserFirstName);
+            Assert.AreEqual(contacts.AuxBilling.LastName, TestUserLastName);
+            Assert.AreEqual(contacts.Registrant.FirstName, TestUserFirstName);
+            Assert.AreEqual(contacts.Registrant.LastName, TestUserLastName);
+            Assert.AreEqual(contacts.Tech.FirstName, TestUserFirstName);
+            Assert.AreEqual(contacts.Tech.LastName, TestUserLastName);
         }
 
-        [TestMethod, Ignore]
-        public void Test_getcontacts()
+        [TestMethod]
+        public void GetInfo_ReturnsInformationOnExistingDomain()
         {
-            var contacts = _api.Domains.GetContacts(_domainName);
-
-            Assert.AreEqual(contacts.Admin.FirstName, "Billy");
-            Assert.AreEqual(contacts.Admin.LastName, "Bob");
+            DomainInfoResult info = _api.Domains.GetInfo(_domainName);
+            Assert.IsTrue(info.ID > 0);
         }
 
-        [TestMethod, Ignore]
-        public void Test_getInfo()
+        [TestMethod]
+        public void GetList_ShouldContainTheTestDomain()
         {
-            var info = _api.Domains.GetInfo(_domainName);
-            Assert.AreEqual(14950, info.ID);
+            DomainListResult result = _api.Domains.GetList();
+            Assert.IsTrue(result.Domains.Length > 0);
+            Assert.IsTrue(result.Domains.Any(d => string.Equals(d.Name, _domainName)));
         }
 
-        [TestMethod, Ignore]
+        [TestMethod, Ignore("Needs work - can only renew a domain so many times")]
         public void Test_renew()
         {
             var result = _api.Domains.Renew(_domainName, 1);
@@ -68,7 +52,7 @@ namespace NameCheapTests
             Assert.IsTrue(result.ChargedAmount > 0);
         }
 
-        //[TestMethod, Ignore]
+        [TestMethod, Ignore("Needs work - can only reactivate an expired domain")]
         public void Test_reactivate()
         {
             var result = _api.Domains.Reactivate(_domainName);
@@ -80,27 +64,20 @@ namespace NameCheapTests
             Assert.IsTrue(result.ChargedAmount > 0);
         }
 
-        [TestMethod, Ignore]
-        public void Test_get_list()
-        {
-            var result = _api.Domains.GetList();
-            Assert.IsTrue(result.Domains.Length > 0);
-        }
-
-        [TestMethod, Ignore]
+        [TestMethod, Ignore("Needs work - should unset the registrar lock in order to validate the method sets it")]
         public void Test_set_registrar_lock()
         {
             _api.Domains.SetRegistrarLock(_domainName);
         }
 
-        [TestMethod, Ignore]
+        [TestMethod, Ignore("Need work - should set the value of the lock before executing the test to make sure it gets the proper value")]
         public void Test_get_registrar_lock()
         {
             bool isLocked = _api.Domains.GetRegistrarLock(_domainName);
             Assert.IsTrue(isLocked);
         }
 
-        [TestMethod, Ignore]
+        [TestMethod, Ignore("Needs work - should validate that the value of the contact was set")]
         public void Test_set_Contacts()
         {
             var contact = new ContactInformation()
