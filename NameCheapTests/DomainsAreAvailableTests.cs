@@ -6,7 +6,7 @@ using NameCheap;
 namespace NameCheapTests
 {
     [TestClass]
-    public class DomainAreAvailableTests : TestBase
+    public class DomainsAreAvailableTests : TestBase
     {
         private readonly string _uniqueSite = $"{Guid.NewGuid()}.com";
         private static readonly string[] KnownDomains = { "google.com", "bing.com" };
