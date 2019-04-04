@@ -11,7 +11,7 @@ namespace NameCheapTests
         [TestMethod, Ignore]
         public void Test_create()
         {
-            string domainName = Guid.NewGuid() + ".com";
+            var info = _api.Domains.GetInfo(_domainName);
 
             var contact = new ContactInformation()
             {
@@ -28,7 +28,7 @@ namespace NameCheapTests
 
             var domain = _api.Domains.Create(new DomainCreateRequest()
             {
-                DomainName = domainName,
+                DomainName = _domainName,
                 Admin = contact,
                 AuxBilling = contact,
                 Registrant = contact,
@@ -36,17 +36,7 @@ namespace NameCheapTests
                 Years = 1
             });
 
-            Assert.AreEqual(domainName, domain.Domain);
-        }
-
-        [TestMethod]
-        public void Test_domain_check()
-        {
-            var uniqueSite = Guid.NewGuid() + ".com";
-
-            var domainNames = _api.Domains.AreAvailable("google.com", uniqueSite);
-            Assert.IsFalse(domainNames.Single(o => o.DomainName == "google.com").IsAvailable);
-            Assert.IsTrue(domainNames.Single(o => o.DomainName == uniqueSite).IsAvailable);
+            Assert.AreEqual(_domainName, domain.Domain);
         }
 
         [TestMethod, Ignore]
