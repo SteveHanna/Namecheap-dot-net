@@ -1,10 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System;
+using Microsoft.Extensions.Configuration;
+using NameCheap;
 
 namespace NameCheapTests
 {
@@ -13,6 +9,10 @@ namespace NameCheapTests
         protected static readonly Lazy<string> _apiUser;
         protected static readonly Lazy<string> _apiKey;
         protected static readonly Lazy<string> _clientIp;
+
+        protected NameCheapApi _api = new NameCheapApi(_apiUser.Value, _apiUser.Value, _apiKey.Value, _clientIp.Value, isSandbox: true);
+        protected const string _domainName = "eaba62ff-e035-417a-8760-bd2d33972a25.com";
+
 
         static TestBase()
         {

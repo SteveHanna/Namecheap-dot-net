@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NameCheap;
@@ -10,9 +8,6 @@ namespace NameCheapTests
     [TestClass]
     public class DomainTests : TestBase
     {
-        private NameCheapApi _api = new NameCheapApi(_apiUser.Value, _apiUser.Value, _apiKey.Value, _clientIp.Value, isSandbox: true);
-        private string _domainName = "eaba62ff-e035-417a-8760-bd2d33972a25.com";
-
         [TestMethod, Ignore]
         public void Test_create()
         {
