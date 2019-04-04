@@ -50,14 +50,6 @@ namespace NameCheapTests
         }
 
         [TestMethod, Ignore]
-        [ExpectedException(typeof(ApplicationException))]
-        public void Test_errors()
-        {
-            NameCheapApi api = new NameCheapApi("x", "x", "x", "x", true);
-            var domainNames = api.Domains.AreAvailable("google.com", _domainName);
-        }
-
-        [TestMethod, Ignore]
         public void Test_getcontacts()
         {
             var contacts = _api.Domains.GetContacts(_domainName);
