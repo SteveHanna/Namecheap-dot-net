@@ -81,13 +81,6 @@ namespace NameCheapTests
         }
 
         [TestMethod, Ignore]
-        public void Test_get_TLD_list()
-        {
-            var result = _api.Domains.GetTldList();
-            Assert.AreEqual("Canada Country TLD", result.Tlds.Single(o => o.Name == "ca").LongName);
-        }
-
-        [TestMethod, Ignore]
         public void Test_get_list()
         {
             var result = _api.Domains.GetList();
