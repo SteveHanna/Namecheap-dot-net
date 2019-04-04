@@ -8,9 +8,9 @@ using NameCheap;
 namespace NameCheapTests
 {
     [TestClass]
-    public class DnsTests
+    public class DnsTests : TestBase
     {
-        private NameCheapApi _api = new NameCheapApi("{username}", "{apiUser}", "{apiKey}", "{clientIp}", true);
+        private NameCheapApi _api = new NameCheapApi(_apiUser.Value, _apiUser.Value, _apiKey.Value, _clientIp.Value, isSandbox: true);
         private string _domainName = "eaba62ff-e035-417a-8760-bd2d33972a25.com";
 
         [TestMethod]
