@@ -105,7 +105,7 @@ namespace NameCheapTests
             var homePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             IConfiguration appSettings = new ConfigurationBuilder()
                 .SetBasePath(homePath)
-                .AddJsonFile("namecheapdotnet-settings.json")
+                .AddJsonFile("namecheapdotnet-settings.json", optional: true)
                 .AddEnvironmentVariables("NAMECHEAPDOTNET_")
                 .Build();
 
