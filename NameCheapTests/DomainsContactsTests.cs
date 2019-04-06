@@ -12,29 +12,28 @@ namespace NameCheapTests
         {
             var timeNonce = DateTime.Now.Ticks;
 
-            (ContactInformation contact, string nonce) MakeContact(string type)
+            ContactInformation MakeContact(string type)
             {
                 // keep type short - timeNonce is 18-chars long and good amount of fields are 50-chars long
                 var nonce = $"{type}{timeNonce}";
-                return (new ContactInformation()
-                {
-                    Address1 = $"1 never never land {nonce}",
-                    City = $"New York {nonce}",
-                    Country = "US", // cannot add nonce to country as it validates against known list
-                    EmailAddress = $"noreply_{nonce}@example.com",
-                    FirstName = $"{TestUserFirstName}-{nonce}",
-                    LastName = $"{TestUserLastName}-{nonce}",
-                    Phone = "+011.5555555555", // cannot add same nonce as the number is required to be in a certain format
-                    PostalCode = $"123-{nonce}",
-                    StateProvince = $"California {nonce}"
-                },
-                nonce);
-            }
+                return new ContactInformation
+                    {
+                        Address1 = $"1 never never land {nonce}",
+                        City = $"New York {nonce}",
+                        Country = "US", // cannot add nonce to country as it validates against known list
+                        EmailAddress = $"noreply_{nonce}@example.com",
+                        FirstName = $"{TestUserFirstName}-{nonce}",
+                        LastName = $"{TestUserLastName}-{nonce}",
+                        Phone = "+011.5555555555", // cannot add same nonce as the number is required to be in a certain format
+                        PostalCode = $"123-{nonce}",
+                        StateProvince = $"California {nonce}"
+                    };
+            };
 
-            var (adminContact, adminNonce) = MakeContact("Adm");
-            var (auxContact, auxNonce) = MakeContact("AB");
-            var (techContact, techNonce) = MakeContact("T");
-            var (regContact, regNonce) = MakeContact("R");
+            var adminContact = MakeContact("Adm");
+            var auxContact = MakeContact("AB");
+            var techContact = MakeContact("T");
+            var regContact = MakeContact("R");
 
             // Act
             _api.Domains.SetContacts(new DomainContactsRequest()
