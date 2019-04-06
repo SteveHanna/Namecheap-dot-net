@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NameCheap;
 
-namespace NameCheapTests
+namespace NameCheapTests.Domain
 {
     [TestClass]
     public class DomainsAreAvailableTests : TestBase

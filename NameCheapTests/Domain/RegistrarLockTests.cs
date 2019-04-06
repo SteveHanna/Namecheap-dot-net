@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace NameCheapTests
+namespace NameCheapTests.Domain
 {
     /// <summary>
     /// Tests the registrar lock methods.
@@ -11,7 +11,7 @@ namespace NameCheapTests
     /// that explores all scenarios based on an initial state.
     /// </remarks>
     [TestClass]
-    public class DomainsRegistrarLockTests : TestBase
+    public class RegistrarLockTests : TestBase
     {
         [TestMethod]
         public void CanLockAndUnlockTheRegistrarStatus()

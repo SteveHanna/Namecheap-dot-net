@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NameCheap;
 
-namespace NameCheapTests
+namespace NameCheapTests.Domain
 {
     [TestClass]
-    public class DomainsContactsTests : TestBase
+    public class ContactsTests : TestBase
     {
         [TestMethod]
         public void SetContacts_SetsAllContacts()

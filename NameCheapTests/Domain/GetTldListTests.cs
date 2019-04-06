@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NameCheap;
 
-namespace NameCheapTests
+namespace NameCheapTests.Domain
 {
     [TestClass]
-    public class DomainsGetTldListTests : TestBase
+    public class GetTldListTests : TestBase
     {
         [TestMethod]
         public void GetTldList_ReturnsMultipleResults()
