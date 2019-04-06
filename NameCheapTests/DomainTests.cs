@@ -9,22 +9,6 @@ namespace NameCheapTests
     public class DomainTests : TestBase
     {
         [TestMethod]
-        public void GetContacts_ReturnContactInfoForAllUsers()
-        {
-            DomainContactsResult contacts = _api.Domains.GetContacts(_domainName);
-
-            // TODO: use different names for each type of contact to distinguish between them in testing
-            Assert.AreEqual(contacts.Admin.FirstName, TestUserFirstName);
-            Assert.AreEqual(contacts.Admin.LastName, TestUserLastName);
-            Assert.AreEqual(contacts.AuxBilling.FirstName, TestUserFirstName);
-            Assert.AreEqual(contacts.AuxBilling.LastName, TestUserLastName);
-            Assert.AreEqual(contacts.Registrant.FirstName, TestUserFirstName);
-            Assert.AreEqual(contacts.Registrant.LastName, TestUserLastName);
-            Assert.AreEqual(contacts.Tech.FirstName, TestUserFirstName);
-            Assert.AreEqual(contacts.Tech.LastName, TestUserLastName);
-        }
-
-        [TestMethod]
         public void GetInfo_ReturnsInformationOnExistingDomain()
         {
             DomainInfoResult info = _api.Domains.GetInfo(_domainName);
