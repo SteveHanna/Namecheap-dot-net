@@ -110,6 +110,14 @@ namespace NameCheap
                 .Execute("namecheap.domains.setRegistrarLock");
         }
 
+        public void SetRegistrarUnlock(string domain)
+        {
+            new Query(_params)
+                .AddParameter("DomainName", domain)
+                .AddParameter("LockAction", "UNLOCK")
+                .Execute("namecheap.domains.setRegistrarLock");
+        }
+
         public TldListResult GetTldList()
         {
             XDocument doc = new Query(_params).Execute("namecheap.domains.getTldList");

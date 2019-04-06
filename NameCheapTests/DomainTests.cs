@@ -64,19 +64,6 @@ namespace NameCheapTests
             Assert.IsTrue(result.ChargedAmount > 0);
         }
 
-        [TestMethod, Ignore("Needs work - should unset the registrar lock in order to validate the method sets it")]
-        public void Test_set_registrar_lock()
-        {
-            _api.Domains.SetRegistrarLock(_domainName);
-        }
-
-        [TestMethod, Ignore("Need work - should set the value of the lock before executing the test to make sure it gets the proper value")]
-        public void Test_get_registrar_lock()
-        {
-            bool isLocked = _api.Domains.GetRegistrarLock(_domainName);
-            Assert.IsTrue(isLocked);
-        }
-
         [TestMethod, Ignore("Needs work - should validate that the value of the contact was set")]
         public void Test_set_Contacts()
         {
