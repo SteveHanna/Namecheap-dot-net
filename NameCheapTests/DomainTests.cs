@@ -63,31 +63,5 @@ namespace NameCheapTests
             Assert.IsTrue(result.TransactionID > 0);
             Assert.IsTrue(result.ChargedAmount > 0);
         }
-
-        [TestMethod, Ignore("Needs work - should validate that the value of the contact was set")]
-        public void Test_set_Contacts()
-        {
-            var contact = new ContactInformation()
-            {
-                Address1 = "1 never never land",
-                City = "New York",
-                Country = "US",
-                EmailAddress = "noreply@example.com",
-                FirstName = "Billy",
-                LastName = "Bob",
-                Phone = "+011.5555555555",
-                PostalCode = "l5Z5Z5",
-                StateProvince = "California"
-            };
-
-            _api.Domains.SetContacts(new DomainContactsRequest()
-            {
-                DomainName = _domainName,
-                Admin = contact,
-                AuxBilling = contact,
-                Registrant = contact,
-                Tech = contact
-            });
-        }
     }
 }
