@@ -58,5 +58,54 @@ namespace NameCheapTests
             Assert.IsTrue(contacts.Registrant.Equals(regContact), "Registrant contacts should match.");
             Assert.IsTrue(contacts.Tech.Equals(techContact), "Tech contacts should match.");
         }
+
+        [TestMethod, Ignore("To be written")]
+        public void SetContacts_Errors_WhenInvalidEmailAddress()
+        {
+            Assert.Fail("Test needs to be written.");
+        }
+
+        [TestMethod, Ignore("To be written")]
+        public void SetContacts_Errors_WhenInvalidPhoneNumber()
+        {
+            Assert.Fail("Test needs to be written.");
+        }
+
+        [TestMethod, Ignore("To be written")]
+        public void SetContacts_Truncates_WhenTextLongerThanLimits()
+        {
+            Assert.Fail("Test needs to be written.");
+        }
+
+        [TestMethod, Ignore("To be written")]
+        public void SetContacts_Errors_WhenMissingAdminContacts()
+        {
+            Assert.Fail("Test needs to be written.");
+        }
+
+        [TestMethod, Ignore("To be written")]
+        public void SetContacts_Errors_WhenMissingAuxBillingContacts()
+        {
+            Assert.Fail("Test needs to be written.");
+        }
+
+        [TestMethod, Ignore("To be written")]
+        public void SetContacts_Errors_WhenMissingRegistrantContacts()
+        {
+            Assert.Fail("Test needs to be written.");
+        }
+
+        [TestMethod, Ignore("To be written")]
+        public void SetContacts_Errors_WhenMissingTechContacts()
+        {
+            Assert.Fail("Test needs to be written.");
+        }
+
+        [TestMethod, Ignore("To be written")]
+        public void SetContacts_Errors_WhenMissingExtendedAttributesForSomeDomains()
+        {
+            // Extended attributes - Required for .us, .eu, .ca, .co.uk, .org.uk, .me.uk, .nu , .asia, .com.au, .net.au, .org.au, .es, .nom.es, .com.es, .org.es, .de, .fr TLDs only
+            Assert.Fail("Test needs to be written.");
+        }
     }
 }
