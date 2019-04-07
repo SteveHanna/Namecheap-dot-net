@@ -10,8 +10,12 @@ namespace NameCheapTests.Dns
         [TestInitialize]
         public void BeforeEachTest()
         {
-            // resets all host entries
             var (secondLevel, tld) = DomainParts.Value;
+
+            // resets DNS to default
+            _api.Dns.SetDefault(secondLevel, tld);
+
+            // resets all host entries
             _api.Dns.SetHosts(
                 secondLevel,
                 tld,

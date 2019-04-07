@@ -89,13 +89,5 @@ namespace NameCheapTests
             var api = new NameCheapApi("x", "x", "x", "0.0.0.0", true);
             _ = api.Domains.AreAvailable("google.com", _domainName);
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(ApplicationException))]
-        public void Test_errors()
-        {
-            var api = new NameCheapApi("x", "x", "x", "0.0.0.0", true);
-            _ = api.Dns.GetList(_domainName.Replace(".com", ""), "com");
-        }
     }
 }
