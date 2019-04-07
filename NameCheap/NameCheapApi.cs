@@ -7,6 +7,8 @@ namespace NameCheap
     public class NameCheapApi
     {
         private readonly GlobalParameters _params;
+        private readonly Lazy<DnsApi> _dnsApi;
+        private readonly Lazy<DomainsApi> _domainsApi;
 
         public NameCheapApi(string username, string apiUser, string apiKey, string clientIp, bool isSandbox = false)
         {
@@ -52,9 +54,12 @@ namespace NameCheap
                 IsSandBox = isSandbox,
                 UserName = username
             };
+
+            _dnsApi = new Lazy<DnsApi>(() => new DnsApi(_params));
+            _domainsApi = new Lazy<DomainsApi>(() => new DomainsApi(_params));
         }
 
-        public DomainsApi Domains { get { return new DomainsApi(_params); } }
-        public DnsApi Dns { get { return new DnsApi(_params); } }
+        public DomainsApi Domains => _domainsApi.Value;
+        public DnsApi Dns => _dnsApi.Value;
     }
 }
