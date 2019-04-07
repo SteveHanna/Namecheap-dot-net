@@ -22,20 +22,6 @@ namespace NameCheapTests
             });
         }
 
-        [TestMethod, Ignore("Needs work - Should ensure this mailbox does not exist before setting and assert it does after")]
-        public void Test_SetEmailForwarding()
-        {
-            EmailForwarding[] request = { new EmailForwarding() { MailBox = "example1", ForwardTo = "example@example.com" } };
-            _api.Dns.SetEmailForwarding(_domainName, request);
-        }
-
-        [TestMethod, Ignore("Needs work - Should ensure the test is isolate and not rely on SetEmailForward to have been run")]
-        public void Test_GetEmailForwarding()
-        {
-            var x = _api.Dns.GetEmailForwarding(_domainName);
-            Assert.AreEqual("example@example.com", x.Emails.Single(o => o.MailBox == "example1").ForwardTo);
-        }
-
         [TestMethod, Ignore("Needs work - Should ensure the test is isolated or that the asserts are pre-set")]
         public void Test_getList()
         {

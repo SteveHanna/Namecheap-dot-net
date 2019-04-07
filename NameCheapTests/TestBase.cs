@@ -18,6 +18,11 @@ namespace NameCheapTests
         protected const string _domainName = "aeb80572-9b17-4ac9-8c24-048d2991119b.com"; // eaba62ff-e035-417a-8760-bd2d33972a25.com";
         protected const string TestUserFirstName = "TestFirstName";
         protected const string TestUserLastName = "TestLastName";
+        protected static readonly Lazy<(string SecondLevelDomain, string TopLevelDomain)> DomainParts = new Lazy<(string SecondLevelDomain, string TopLevelDomain)>(() =>
+        {
+            var parts = _domainName.Split('.');
+            return (parts[0], parts[1]);
+        });
 
         // whether domain exists - null
         private static bool? _domainExists = null;
