@@ -53,5 +53,11 @@ namespace NameCheapTests.Dns
             Assert.AreEqual("www", entry2.HostName);
             Assert.AreEqual("1800", entry2.Ttl);
         }
+
+        [TestMethod]
+        public void SetHosts_Errors_WhenCnameIsAnIp()
+        {
+            Assert.Inconclusive("Tests needs to be written.");
+        }
     }
 }
