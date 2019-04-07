@@ -79,6 +79,15 @@ namespace NameCheap
             query.Execute("namecheap.domains.dns.setEmailForwarding");
         }
 
+        /// <summary>
+        /// Deletes all the email forwarding for a domain.
+        /// </summary>
+        /// <param name="domain">The domain for which to delete the forwards.</param>
+        public void DeleteAllEmailForwarding(string domain)
+        {
+            SetEmailForwarding(domain, new EmailForwarding[0]);
+        }
+
         public DnsListResult GetList(string sld, string tld)
         {
             var query = new Query(_params)
