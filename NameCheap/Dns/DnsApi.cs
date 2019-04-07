@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -14,21 +15,21 @@ namespace NameCheap
             _params = globalParams;
         }
 
-        public void SetHosts(DnsHostsRequest request)
+        public void SetHosts(string secondLevelDomain, string topLevelDomain, HostEntry[] hostEntries)
         {
             var query = new Query(_params);
-            query.AddParameter("SLD", request.SLD);
-            query.AddParameter("TLD", request.TLD);
+            query.AddParameter("SLD", secondLevelDomain);
+            query.AddParameter("TLD", topLevelDomain);
 
-            for (int i = 0; i < request.HostEntries.Length; i++)
+            for (int i = 0; i < hostEntries.Length; i++)
             {
-                query.AddParameter("HostName" + (i + 1), request.HostEntries[i].HostName);
-                query.AddParameter("Address" + (i + 1), request.HostEntries[i].Address);
-                query.AddParameter("MxPref" + (i + 1), request.HostEntries[i].MxPref);
-                query.AddParameter("RecordType" + (i + 1), Enum.GetName(typeof(RecordType), request.HostEntries[i].RecordType));
+                query.AddParameter("HostName" + (i + 1), hostEntries[i].HostName);
+                query.AddParameter("Address" + (i + 1), hostEntries[i].Address);
+                query.AddParameter("MxPref" + (i + 1), hostEntries[i].MxPref);
+                query.AddParameter("RecordType" + (i + 1), Enum.GetName(typeof(RecordType), hostEntries[i].RecordType));
 
-                if (!string.IsNullOrEmpty(request.HostEntries[i].Ttl))
-                    query.AddParameter("TTL" + (i + 1), request.HostEntries[i].Ttl);
+                if (!string.IsNullOrEmpty(hostEntries[i].Ttl))
+                    query.AddParameter("TTL" + (i + 1), hostEntries[i].Ttl);
             }
 
             XDocument doc = query.Execute("namecheap.domains.dns.setHosts");
