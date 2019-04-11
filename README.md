@@ -2,6 +2,10 @@
 
 A .NET wrapper for the [Namecheap API](http://www.namecheap.com/support/api/api.aspx).
 
+[![NuGet version (NameCheapDotNet)](https://img.shields.io/nuget/v/NameCheapDotNet.svg?style=flat-square)](https://www.nuget.org/packages/NameCheapDotNet/)
+
+https://www.nuget.org/packages/NameCheapDotNet/
+
 ## Sample Code
 
 ### Check the availability of several domain names.
