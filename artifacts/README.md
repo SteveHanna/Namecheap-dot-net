@@ -10,6 +10,8 @@ To package the project:
 
 `nupkg` is in the `$/artifacts` folder.
 
+To push the package:
+
     cd artifacts
     dotnet nuget push *.nupkg -k API_KEY -s https://api.nuget.org/v3/index.json
 

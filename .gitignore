@@ -43,6 +43,8 @@ ipch/
 
 # Click-Once directory
 publish
+
+# artifacts is for publishing and packaging
 /artifacts/**
 !/artifacts/README.md
 
