@@ -43,6 +43,8 @@ ipch/
 
 # Click-Once directory
 publish
+/artifacts/**
+!/artifacts/README.md
 
 # Others
 [Bb]in
