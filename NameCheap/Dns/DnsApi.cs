@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -17,21 +15,21 @@ namespace NameCheap
             _params = globalParams;
         }
 
-        public void SetHosts(DnsHostsRequest request)
+        public void SetHosts(string secondLevelDomain, string topLevelDomain, HostEntry[] hostEntries)
         {
             var query = new Query(_params);
-            query.AddParameter("SLD", request.SLD);
-            query.AddParameter("TLD", request.TLD);
+            query.AddParameter("SLD", secondLevelDomain);
+            query.AddParameter("TLD", topLevelDomain);
 
-            for (int i = 0; i < request.HostEntries.Length; i++)
+            for (int i = 0; i < hostEntries.Length; i++)
             {
-                query.AddParameter("HostName" + (i + 1), request.HostEntries[i].HostName);
-                query.AddParameter("Address" + (i + 1), request.HostEntries[i].Address);
-                query.AddParameter("MxPref" + (i + 1), request.HostEntries[i].MxPref);
-                query.AddParameter("RecordType" + (i + 1), Enum.GetName(typeof(RecordType), request.HostEntries[i].RecordType));
+                query.AddParameter("HostName" + (i + 1), hostEntries[i].HostName);
+                query.AddParameter("Address" + (i + 1), hostEntries[i].Address);
+                query.AddParameter("MxPref" + (i + 1), hostEntries[i].MxPref);
+                query.AddParameter("RecordType" + (i + 1), Enum.GetName(typeof(RecordType), hostEntries[i].RecordType));
 
-                if (!string.IsNullOrEmpty(request.HostEntries[i].Ttl))
-                    query.AddParameter("TTL" + (i + 1), request.HostEntries[i].Ttl);
+                if (!string.IsNullOrEmpty(hostEntries[i].Ttl))
+                    query.AddParameter("TTL" + (i + 1), hostEntries[i].Ttl);
             }
 
             XDocument doc = query.Execute("namecheap.domains.dns.setHosts");
@@ -80,6 +78,15 @@ namespace NameCheap
             }
 
             query.Execute("namecheap.domains.dns.setEmailForwarding");
+        }
+
+        /// <summary>
+        /// Deletes all the email forwarding for a domain.
+        /// </summary>
+        /// <param name="domain">The domain for which to delete the forwards.</param>
+        public void DeleteAllEmailForwarding(string domain)
+        {
+            SetEmailForwarding(domain, new EmailForwarding[0]);
         }
 
         public DnsListResult GetList(string sld, string tld)

@@ -1,20 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using System.Net;
-using System.Xml.Serialization;
-using System.Globalization;
+using System.Net.Sockets;
 
 namespace NameCheap
 {
     public class NameCheapApi
     {
         private readonly GlobalParameters _params;
+        private readonly Lazy<DnsApi> _dnsApi;
+        private readonly Lazy<DomainsApi> _domainsApi;
 
         public NameCheapApi(string username, string apiUser, string apiKey, string clientIp, bool isSandbox = false)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentNullException(nameof(username));
+            }
+
+            if (string.IsNullOrWhiteSpace(apiUser))
+            {
+                throw new ArgumentNullException(nameof(apiUser));
+            }
+
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                throw new ArgumentNullException(nameof(apiKey));
+            }
+
+            if (string.IsNullOrWhiteSpace(clientIp))
+            {
+                throw new ArgumentNullException(nameof(clientIp));
+            }
+            else
+            {
+                if (IPAddress.TryParse(clientIp, out var ip))
+                {
+                    if (ip.AddressFamily != AddressFamily.InterNetwork)
+                    {
+                        throw new ArgumentException($"Client IP {clientIp} is not a valid IPv4 address.", nameof(clientIp));
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException($"{clientIp} does not seem a valid IP address.", nameof(clientIp));
+                }
+            }
+
             _params = new GlobalParameters()
             {
                 ApiKey = apiKey,
@@ -23,9 +54,12 @@ namespace NameCheap
                 IsSandBox = isSandbox,
                 UserName = username
             };
+
+            _dnsApi = new Lazy<DnsApi>(() => new DnsApi(_params));
+            _domainsApi = new Lazy<DomainsApi>(() => new DomainsApi(_params));
         }
 
-        public DomainsApi Domains { get { return new DomainsApi(_params); } }
-        public DnsApi Dns { get { return new DnsApi(_params); } }
+        public DomainsApi Domains => _domainsApi.Value;
+        public DnsApi Dns => _dnsApi.Value;
     }
 }

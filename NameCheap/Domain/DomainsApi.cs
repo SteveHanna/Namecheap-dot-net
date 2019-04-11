@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -107,6 +106,14 @@ namespace NameCheap
         {
             new Query(_params)
                 .AddParameter("DomainName", domain)
+                .Execute("namecheap.domains.setRegistrarLock");
+        }
+
+        public void SetRegistrarUnlock(string domain)
+        {
+            new Query(_params)
+                .AddParameter("DomainName", domain)
+                .AddParameter("LockAction", "UNLOCK")
                 .Execute("namecheap.domains.setRegistrarLock");
         }
 
