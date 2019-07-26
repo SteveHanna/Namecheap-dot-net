@@ -15,7 +15,7 @@ namespace NameCheapTests
         protected NameCheapApi _api = new NameCheapApi(_apiUser.Value, _apiUser.Value, _apiKey.Value, _clientIp.Value, isSandbox: true);
 
         // Domain used (and re-used for testing) - changing this value could have adverse effects to the test suite
-        protected const string _domainName = "aeb80572-9b17-4ac9-8c24-048d2991119b.com"; // eaba62ff-e035-417a-8760-bd2d33972a25.com";
+        protected const string _domainName = "eaba62ff-e035-417a-8760-bd2d33972a25.com"; // eaba62ff-e035-417a-8760-bd2d33972a25.com";
         protected const string TestUserFirstName = "TestFirstName";
         protected const string TestUserLastName = "TestLastName";
         protected static readonly Lazy<(string SecondLevelDomain, string TopLevelDomain)> DomainParts = new Lazy<(string SecondLevelDomain, string TopLevelDomain)>(() =>
@@ -28,11 +28,11 @@ namespace NameCheapTests
         private static bool? _domainExists = null;
 
         static TestBase()
-        {
+        {            
             var config = new Lazy<IConfiguration>(() => LoadSettings());
             _apiUser = new Lazy<string>(() => config.Value.GetSection("apiUser").Value);
             _apiKey = new Lazy<string>(() => config.Value.GetSection("apiKey").Value);
-            _clientIp = new Lazy<string>(() => config.Value.GetSection("clientIp").Value);
+            _clientIp = new Lazy<string>(() => config.Value.GetSection("clientIp").Value);           
         }
 
         [AssemblyInitialize]
@@ -107,7 +107,7 @@ namespace NameCheapTests
             // - Unix: $HOME aka ~
             //         - /home/<user> on Linux
             //         - /Users/<user> on macOS
-            var homePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var homePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);          
             IConfiguration appSettings = new ConfigurationBuilder()
                 .SetBasePath(homePath)
                 .AddJsonFile("namecheapdotnet-settings.json", optional: true)

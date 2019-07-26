@@ -170,6 +170,57 @@ namespace NameCheap
         }
 
         /// <summary>
+        /// Returns a list of domains for the particular user, using parameters. ListType Default Value is "ALL", Page Default Value is - 1, PageSize Default Value is - 20.
+        /// </summary>
+        /// <param name="listType">Possible values are ALL, EXPIRING, or EXPIRED. Default Value: ALL</param>
+        /// <param name="page">Page to return. Default Value: 1</param>
+        /// <param name="pageSize">Number of domains to be listed on a page. Minimum value is 10, maximum value is 100. Default Value: 20</param>
+        /// <exception cref="ApplicationException">
+        /// Exception when the following problems are encountered:
+        /// 5050169	Unknown exceptions
+        /// </exception>
+        public DomainListResult GetList(int page = 1, int pageSize = 20, string listType = "ALL")
+        {
+            XDocument doc = new Query(_params)
+                .AddParameter("ListType", listType)
+                .AddParameter("Page", page.ToString())
+                .AddParameter("PageSize", pageSize.ToString())
+                .Execute("namecheap.domains.getList");
+
+            var serializer = new XmlSerializer(typeof(DomainListResult), _ns.NamespaceName);
+
+            using (var reader = doc.Root.Element(_ns + "CommandResponse").CreateReader())
+            {
+                return (DomainListResult)serializer.Deserialize(reader);
+            }
+        }
+
+
+        /// <summary>
+        /// Returns a list of domains for the particular user, using all available API method parameters.
+        /// </summary>
+        /// <param name="listType">Possible values are ALL, EXPIRING, or EXPIRED. Default Value: ALL</param>
+        /// <param name="searchTerm">Keyword to look for in the domain list.</param>
+        /// <param name="page">Page to return. Default Value: 1</param>
+        /// <param name="pageSize">Number of domains to be listed on a page. Minimum value is 10, maximum value is 100. Default Value: 20</param>
+        /// <param name="sortBy">Possible values are NAME, NAME_DESC, EXPIREDATE, EXPIREDATE_DESC, CREATEDATE, CREATEDATE_DESC</param>
+        /// <exception cref="ApplicationException">
+        /// Exception when the following problems are encountered:
+        /// 5050169	Unknown exceptions
+        /// </exception>
+        public DomainListResult GetList(string listType, string searchTerm, int page, int pageSize, string sortBy)
+        {
+            XDocument doc = new Query(_params).Execute("namecheap.domains.getList");
+
+            var serializer = new XmlSerializer(typeof(DomainListResult), _ns.NamespaceName);
+
+            using (var reader = doc.Root.Element(_ns + "CommandResponse").CreateReader())
+            {
+                return (DomainListResult)serializer.Deserialize(reader);
+            }
+        }
+
+        /// <summary>
         /// Gets the Registrar Lock status for the requested domain.
         /// </summary>
         /// <param name="domain">Domain name to get status for.</param>
