@@ -115,7 +115,8 @@ namespace NameCheapTests
             // -Windows: c:\user\<user>\Documents 
             // - Unix: $HOME aka ~
             //         - /home/<user> on Linux
-            //         - /Users/<user> on macOS
+            //         - /Users/<user>/Documents on macOS
+            //         - C:\Users\<user>\Documents or "My Documents" on Windows
             var homePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);          
             IConfiguration appSettings = new ConfigurationBuilder()
                 .SetBasePath(homePath)
