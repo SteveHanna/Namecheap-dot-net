@@ -20,7 +20,7 @@ namespace NameCheapTests.Dns
         public void BeforeEachTest()
         {
             // sets all forwards to default value
-            _api.Dns.DeleteAllEmailForwarding(_domainName);
+            _api.Dns.DeleteAllEmailForwarding(_domainName.Value);
         }
 
         [TestMethod]
@@ -32,10 +32,10 @@ namespace NameCheapTests.Dns
             var forwards = new[] { new EmailForwarding { MailBox = nonceMailBox, ForwardTo = nonceForward }};
 
             // Act
-            _api.Dns.SetEmailForwarding(_domainName, forwards);
+            _api.Dns.SetEmailForwarding(_domainName.Value, forwards);
 
             // Assert
-            var allForwards = _api.Dns.GetEmailForwarding(_domainName);
+            var allForwards = _api.Dns.GetEmailForwarding(_domainName.Value);
             var forwardCounts = allForwards.Emails.Count(e => 
                 string.Equals(e.MailBox, nonceMailBox, StringComparison.OrdinalIgnoreCase)
                 && string.Equals(e.ForwardTo, nonceForward, StringComparison.OrdinalIgnoreCase));
@@ -56,10 +56,10 @@ namespace NameCheapTests.Dns
             };
 
             // Act
-            _api.Dns.SetEmailForwarding(_domainName, forwards);
+            _api.Dns.SetEmailForwarding(_domainName.Value, forwards);
 
             // Assert
-            var allForwards = _api.Dns.GetEmailForwarding(_domainName);
+            var allForwards = _api.Dns.GetEmailForwarding(_domainName.Value);
             Assert.AreEqual(2, allForwards.Emails.Count, "Expected two entries (for one mailbox).");
             Assert.IsTrue(
                 allForwards.Emails.All(e => string.Equals(e.MailBox, nonceMailBox, StringComparison.OrdinalIgnoreCase)),

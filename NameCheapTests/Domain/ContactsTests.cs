@@ -38,7 +38,7 @@ namespace NameCheapTests.Domain
             // Act
             _api.Domains.SetContacts(new DomainContactsRequest()
             {
-                DomainName = _domainName,
+                DomainName = _domainName.Value,
                 Admin = adminContact,
                 AuxBilling = auxContact,
                 Registrant = regContact,
@@ -46,7 +46,7 @@ namespace NameCheapTests.Domain
             });
 
             // Assert
-            DomainContactsResult contacts = _api.Domains.GetContacts(_domainName);
+            DomainContactsResult contacts = _api.Domains.GetContacts(_domainName.Value);
 
             Assert.IsTrue(contacts.Admin.Equals(adminContact), "Admin contacts should match.");
             Assert.IsTrue(contacts.AuxBilling.Equals(auxContact), "Aux billing contacts should match.");

@@ -10,7 +10,7 @@ namespace NameCheapTests.Domain
         [TestMethod]
         public void GetInfo_ReturnsInformationOnExistingDomain()
         {
-            DomainInfoResult info = _api.Domains.GetInfo(_domainName);
+            DomainInfoResult info = _api.Domains.GetInfo(_domainName.Value);
             Assert.IsTrue(info.ID > 0);
         }
 
@@ -19,7 +19,7 @@ namespace NameCheapTests.Domain
         {
             DomainListResult result = _api.Domains.GetList();
             Assert.IsTrue(result.Domains.Length > 0);
-            Assert.IsTrue(result.Domains.Any(d => string.Equals(d.Name, _domainName)));
+            Assert.IsTrue(result.Domains.Any(d => string.Equals(d.Name, _domainName.Value)));
         }
 
         [TestMethod]
@@ -32,19 +32,19 @@ namespace NameCheapTests.Domain
         [TestMethod]
         public void GetList_TestForAllParamsMethodShouldContainTheTestDomain()
         {
-            string searchTerm = _domainName.Substring(0, (_domainName.Length - 4)); // for the .com TLD
+            string searchTerm = _domainName.Value.Substring(0, (_domainName.Value.Length - 4)); // for the .com TLD
             DomainListResult result = _api.Domains.GetList("ALL", searchTerm, 1, 21, "NAME");
             Assert.IsTrue(result.Domains.Length > 0);
-            Assert.IsTrue(result.Domains.Any(d => string.Equals(d.Name, _domainName)));
+            Assert.IsTrue(result.Domains.Any(d => string.Equals(d.Name, _domainName.Value)));
         }
 
 
         [TestMethod, Ignore("Needs work - can only renew a domain so many times")]
         public void Test_renew()
         {
-            var result = _api.Domains.Renew(_domainName, 1);
+            var result = _api.Domains.Renew(_domainName.Value, 1);
 
-            Assert.AreEqual(result.DomainName, _domainName);
+            Assert.AreEqual(result.DomainName, _domainName.Value);
             Assert.IsTrue(result.DomainID > 0);
             Assert.AreEqual(result.Renew, true);
             Assert.IsTrue(result.OrderID > 0);
@@ -55,9 +55,9 @@ namespace NameCheapTests.Domain
         [TestMethod, Ignore("Needs work - can only reactivate an expired domain")]
         public void Test_reactivate()
         {
-            var result = _api.Domains.Reactivate(_domainName);
+            var result = _api.Domains.Reactivate(_domainName.Value);
 
-            Assert.AreEqual(result.DomainName, _domainName);
+            Assert.AreEqual(result.DomainName, _domainName.Value);
             Assert.AreEqual(result.IsSuccess, true);
             Assert.IsTrue(result.OrderID > 0);
             Assert.IsTrue(result.TransactionID > 0);

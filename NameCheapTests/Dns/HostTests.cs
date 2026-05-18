@@ -37,7 +37,7 @@ namespace NameCheapTests.Dns
                             Ttl = "2000",
                     },
                     new HostEntry {
-                            Address = _domainName,
+                            Address = _domainName.Value,
                             HostName = "www",
                             RecordType =  RecordType.CNAME
                     }
@@ -53,7 +53,7 @@ namespace NameCheapTests.Dns
             Assert.AreEqual("2000", entry1.Ttl);
 
             var entry2 = hosts.HostEntries.FirstOrDefault(h => h.RecordType == RecordType.CNAME);
-            Assert.AreEqual($"{_domainName}.", entry2.Address, "Because the CNAME gets a . at the end.");
+            Assert.AreEqual($"{_domainName.Value}.", entry2.Address, "Because the CNAME gets a . at the end.");
             Assert.AreEqual("www", entry2.HostName);
             Assert.AreEqual("1800", entry2.Ttl);
         }

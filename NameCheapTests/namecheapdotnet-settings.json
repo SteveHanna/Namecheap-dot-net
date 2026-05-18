@@ -1,5 +1,6 @@
 {
   "apiUser": "obtain user from sandbox.namecheap.com - see https://www.sandbox.namecheap.com/support/api/intro.aspx",
   "apiKey": "obtain API key from NameCheap sandbox",
-  "clientIp": "external IPv4 of your computer registered with NameCheap sandbox"
+  "clientIp": "external IPv4 of your computer registered with NameCheap sandbox",
+  "testDomain": "aeb80572-9b17-4ac9-8c24-048d2991119b.com"
 }

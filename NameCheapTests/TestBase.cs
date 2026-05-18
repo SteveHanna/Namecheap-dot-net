@@ -8,19 +8,27 @@ namespace NameCheapTests
     [TestClass]
     public abstract class TestBase
     {
+        /**
+         * Set these up in the namecheapdotnet-settings.json.
+         * 
+         * See https://www.sandbox.namecheap.com/support/api/intro.aspx
+         * 
+         * To get these values create an account and a domain on sandbox.namecheap.com
+         * and then follow the instructions in https://www.sandbox.namecheap.com/support/api/intro.aspx
+         */
         protected static readonly Lazy<string> _apiUser;
         protected static readonly Lazy<string> _apiKey;
         protected static readonly Lazy<string> _clientIp;
 
         protected NameCheapApi _api = new NameCheapApi(_apiUser.Value, _apiUser.Value, _apiKey.Value, _clientIp.Value, isSandbox: true);
 
-        // Domain used (and re-used for testing) - changing this value could have adverse effects to the test suite
-        protected const string _domainName = "eaba62ff-e035-417a-8760-bd2d33972a25.com"; // eaba62ff-e035-417a-8760-bd2d33972a25.com";
+        // Domain used (and re-used for testing) - recommended to set up a GUID-like domain in the sandbox
+        protected static readonly Lazy<string> _domainName;
         protected const string TestUserFirstName = "TestFirstName";
         protected const string TestUserLastName = "TestLastName";
         protected static readonly Lazy<(string SecondLevelDomain, string TopLevelDomain)> DomainParts = new Lazy<(string SecondLevelDomain, string TopLevelDomain)>(() =>
         {
-            var parts = _domainName.Split('.');
+            var parts = _domainName.Value.Split('.');
             return (parts[0], parts[1]);
         });
 
@@ -33,6 +41,7 @@ namespace NameCheapTests
             _apiUser = new Lazy<string>(() => config.Value.GetSection("apiUser").Value);
             _apiKey = new Lazy<string>(() => config.Value.GetSection("apiKey").Value);
             _clientIp = new Lazy<string>(() => config.Value.GetSection("clientIp").Value);           
+            _domainName = new Lazy<string>(() => config.Value.GetSection("testDomain").Value);           
         }
 
         [AssemblyInitialize]
@@ -54,7 +63,7 @@ namespace NameCheapTests
                 try
                 {
                     var api = new NameCheapApi(_apiUser.Value, _apiUser.Value, _apiKey.Value, _clientIp.Value, isSandbox: true);
-                    DomainInfoResult info = api.Domains.GetInfo(_domainName);
+                    DomainInfoResult info = api.Domains.GetInfo(_domainName.Value);
                     _domainExists = true;
                 }
                 catch (ApplicationException) // TODO: where (e.ErrorCode == 2030166)
@@ -89,7 +98,7 @@ namespace NameCheapTests
             var api = new NameCheapApi(_apiUser.Value, _apiUser.Value, _apiKey.Value, _clientIp.Value, isSandbox: true);
             var domain = api.Domains.Create(new DomainCreateRequest()
             {
-                DomainName = _domainName,
+                DomainName = _domainName.Value,
                 Admin = contact, 
                 AuxBilling = contact,
                 Registrant = contact,

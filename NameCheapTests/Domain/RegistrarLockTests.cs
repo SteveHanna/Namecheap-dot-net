@@ -16,7 +16,7 @@ namespace NameCheapTests.Domain
         [TestMethod]
         public void CanLockAndUnlockTheRegistrarStatus()
         {
-            bool isLocked = _api.Domains.GetRegistrarLock(_domainName);
+            bool isLocked = _api.Domains.GetRegistrarLock(_domainName.Value);
 
             if (isLocked)
             {
@@ -32,15 +32,15 @@ namespace NameCheapTests.Domain
 
         private void TestUnlock()
         {
-            _api.Domains.SetRegistrarUnlock(_domainName);
-            var isLocked = _api.Domains.GetRegistrarLock(_domainName);
+            _api.Domains.SetRegistrarUnlock(_domainName.Value);
+            var isLocked = _api.Domains.GetRegistrarLock(_domainName.Value);
             Assert.IsFalse(isLocked, "Expected registrar lock status to be unlocked because the test just unlocked it.");
         }
 
         private void TestLock()
         {
-            _api.Domains.SetRegistrarLock(_domainName);
-            var isLocked = _api.Domains.GetRegistrarLock(_domainName);
+            _api.Domains.SetRegistrarLock(_domainName.Value);
+            var isLocked = _api.Domains.GetRegistrarLock(_domainName.Value);
             Assert.IsTrue(isLocked, "Expected registrar lock status to be locked because the test just locked it.");
         }
     }

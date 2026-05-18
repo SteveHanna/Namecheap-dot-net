@@ -87,7 +87,7 @@ namespace NameCheapTests
         public void DomainAreAvailable_ShouldThrow_WhenMisconfigured()
         {
             var api = new NameCheapApi("x", "x", "x", "0.0.0.0", true);
-            _ = api.Domains.AreAvailable("google.com", _domainName);
+            _ = api.Domains.AreAvailable("google.com", _domainName.Value);
         }
     }
 }
