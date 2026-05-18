@@ -30,24 +30,41 @@ namespace NameCheap
         internal XDocument Execute(string command)
         {
             StringBuilder url = new StringBuilder();
-            url.Append(_globals.IsSandBox ? "https://api.sandbox.namecheap.com/xml.response?" : "https://api.namecheap.com/xml.response?");
+            url.Append(_globals.IsSandBox
+                ? "https://api.sandbox.namecheap.com/xml.response?"
+                : "https://api.namecheap.com/xml.response?");
             url.Append("Command=").Append(command)
-            .Append("&ApiUser=").Append(_globals.ApiUser)
-            .Append("&UserName=").Append(_globals.UserName)
-            .Append("&ApiKey=").Append(_globals.ApiKey)
-            .Append("&ClientIp=").Append(_globals.CLientIp);
+                .Append("&ApiUser=").Append(_globals.ApiUser)
+                .Append("&UserName=").Append(_globals.UserName)
+                .Append("&ApiKey=").Append(_globals.ApiKey)
+                .Append("&ClientIp=").Append(_globals.CLientIp);
 
             foreach (KeyValuePair<string, string> param in _parameters)
                 url.Append("&").Append(param.Key).Append("=").Append(param.Value);
 
-            // TODO: retrieve the document as string so it can be inspected
-            // TODO: something on the if below throws NRE, so handle and print the results when it doesn
-            XDocument doc = XDocument.Parse(new WebClient().DownloadString(url.ToString()));
+            string content = new WebClient().DownloadString(url.ToString());
+            XDocument doc = XDocument.Parse(content);
+
+            if (doc.Root?.Attribute("Status") is null)
+            {
+                throw new ApplicationException(
+                    $"Received a null root or a missing STATUS attribute. XML document: {content}");
+            }
 
             if (doc.Root.Attribute("Status").Value.Equals("ERROR", StringComparison.OrdinalIgnoreCase))
-                throw new ApplicationException(string.Join(",", doc.Root.Element(_ns + "Errors").Elements(_ns + "Error").Select(o => o.Value).ToArray()));
-            else
-                return doc;
+                try
+                {
+                    XNamespace ns = doc.Root.Element("Errors") != null ? "" : _ns;
+                    throw new ApplicationException(string.Join(",",
+                        doc.Root.Element(ns + "Errors")?.Elements(ns + "Error").Select(o => o.Value).ToArray() ??
+                        Array.Empty<string>()));
+                }
+                catch (NullReferenceException)
+                {
+                    throw new ApplicationException($"Error finding errors in XML doc: {content}");
+                }
+
+            return doc;
         }
     }
 }
