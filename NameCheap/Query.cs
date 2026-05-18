@@ -40,6 +40,8 @@ namespace NameCheap
             foreach (KeyValuePair<string, string> param in _parameters)
                 url.Append("&").Append(param.Key).Append("=").Append(param.Value);
 
+            // TODO: retrieve the document as string so it can be inspected
+            // TODO: something on the if below throws NRE, so handle and print the results when it doesn
             XDocument doc = XDocument.Parse(new WebClient().DownloadString(url.ToString()));
 
             if (doc.Root.Attribute("Status").Value.Equals("ERROR", StringComparison.OrdinalIgnoreCase))

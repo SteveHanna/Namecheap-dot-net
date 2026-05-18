@@ -22,7 +22,7 @@ namespace NameCheapTests.Domain
             Assert.IsTrue(result.Domains.Any(d => string.Equals(d.Name, _domainName.Value)));
         }
 
-        [TestMethod]
+        [TestMethod, Ignore("Will need to figure out a way to test with more than 20 domains")]
         public void GetList_ShouldContainMoreThan20Domains()
         {
             DomainListResult result = _api.Domains.GetList(1, 21);

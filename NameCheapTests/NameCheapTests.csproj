@@ -15,7 +15,9 @@
   <ItemGroup>
     <ProjectReference Include="..\NameCheap\NameCheap.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <RunSettingsFilePath>$(MSBuildProjectDirectory)\default.runsettings</RunSettingsFilePath>
+  </PropertyGroup>
   <ItemGroup>
     <None Update="namecheapdotnet-settings.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
