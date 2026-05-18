@@ -33,7 +33,7 @@ namespace NameCheapTests
         });
         
         // controls the delay between tests to avoid a "Too many requests" error
-        protected const int TestThrottleMilliseconds = 2_000;
+        protected static readonly Lazy<int> TestThrottleMilliseconds;
 
         // whether domain exists - null
         private static bool? _domainExists = null;
@@ -44,7 +44,9 @@ namespace NameCheapTests
             _apiUser = new Lazy<string>(() => config.Value.GetSection("apiUser").Value);
             _apiKey = new Lazy<string>(() => config.Value.GetSection("apiKey").Value);
             _clientIp = new Lazy<string>(() => config.Value.GetSection("clientIp").Value);           
-            _domainName = new Lazy<string>(() => config.Value.GetSection("testDomain").Value);           
+            _domainName = new Lazy<string>(() => config.Value.GetSection("testDomain").Value);
+            TestThrottleMilliseconds =
+                new Lazy<int>(() => int.Parse(config.Value.GetSection("throttle").Value ?? "1000"));
         }
 
         [AssemblyInitialize]

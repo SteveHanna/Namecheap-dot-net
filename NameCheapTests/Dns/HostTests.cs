@@ -23,7 +23,7 @@ namespace NameCheapTests.Dns
             
             // hack to avoid Too many requests errors.
             // TODO: remove with https://github.com/SteveHanna/Namecheap-dot-net/issues/10
-            System.Threading.Thread.Sleep(TestThrottleMilliseconds);
+            System.Threading.Thread.Sleep(TestThrottleMilliseconds.Value);
         }
 
         [TestMethod]
