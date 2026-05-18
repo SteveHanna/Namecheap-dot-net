@@ -21,6 +21,10 @@ namespace NameCheapTests.Dns
         {
             // sets all forwards to default value
             _api.Dns.DeleteAllEmailForwarding(_domainName.Value);
+            
+            // hack to avoid Too many requests errors.
+            // TODO: remove with https://github.com/SteveHanna/Namecheap-dot-net/issues/10
+            System.Threading.Thread.Sleep(TestThrottleMilliseconds);
         }
 
         [TestMethod]

@@ -31,6 +31,9 @@ namespace NameCheapTests
             var parts = _domainName.Value.Split('.');
             return (parts[0], parts[1]);
         });
+        
+        // controls the delay between tests to avoid a "Too many requests" error
+        protected const int TestThrottleMilliseconds = 2_000;
 
         // whether domain exists - null
         private static bool? _domainExists = null;

@@ -7,6 +7,14 @@ namespace NameCheapTests.Domain
     [TestClass]
     public class DomainTests : TestBase
     {
+        [TestInitialize]
+        public void BeforeEachTest()
+        {
+            // hack to avoid Too many requests errors.
+            // TODO: remove with https://github.com/SteveHanna/Namecheap-dot-net/issues/10
+            System.Threading.Thread.Sleep(TestThrottleMilliseconds);
+        }
+        
         [TestMethod]
         public void GetInfo_ReturnsInformationOnExistingDomain()
         {

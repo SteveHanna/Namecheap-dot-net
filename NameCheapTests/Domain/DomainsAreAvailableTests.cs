@@ -11,6 +11,14 @@ namespace NameCheapTests.Domain
         private readonly string _uniqueSite = $"{Guid.NewGuid()}.com";
         private static readonly string[] KnownDomains = { "google.com", "bing.com" };
         
+        [TestInitialize]
+        public void BeforeEachTest()
+        {
+            // hack to avoid Too many requests errors.
+            // TODO: remove with https://github.com/SteveHanna/Namecheap-dot-net/issues/10
+            System.Threading.Thread.Sleep(TestThrottleMilliseconds);
+        }
+        
         [TestMethod]
         public void AreAvailable_HandlesAvailableDomains()
         {

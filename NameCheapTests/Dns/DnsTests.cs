@@ -14,6 +14,10 @@ namespace NameCheapTests.Dns
 
             // sets the DNS back to default
             _api.Dns.SetDefault(secondLevel, tld);
+            
+            // hack to avoid Too many requests errors.
+            // TODO: remove with https://github.com/SteveHanna/Namecheap-dot-net/issues/10
+            System.Threading.Thread.Sleep(TestThrottleMilliseconds);
         }
 
         [TestMethod]
