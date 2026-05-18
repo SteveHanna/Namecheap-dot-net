@@ -46,7 +46,7 @@ namespace NameCheapTests
             _clientIp = new Lazy<string>(() => config.Value.GetSection("clientIp").Value);           
             _domainName = new Lazy<string>(() => config.Value.GetSection("testDomain").Value);
             TestThrottleMilliseconds =
-                new Lazy<int>(() => int.Parse(config.Value.GetSection("throttle").Value ?? "1000"));
+                new Lazy<int>(() => int.Parse(config.Value.GetSection("throttle").Value ?? "2000"));
         }
 
         [AssemblyInitialize]
