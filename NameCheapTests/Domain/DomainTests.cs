@@ -22,6 +22,23 @@ namespace NameCheapTests.Domain
             Assert.IsTrue(result.Domains.Any(d => string.Equals(d.Name, _domainName)));
         }
 
+        [TestMethod]
+        public void GetList_ShouldContainMoreThan20Domains()
+        {
+            DomainListResult result = _api.Domains.GetList(1, 21);
+            Assert.IsTrue(result.Domains.Length > 20);
+        }
+
+        [TestMethod]
+        public void GetList_TestForAllParamsMethodShouldContainTheTestDomain()
+        {
+            string searchTerm = _domainName.Substring(0, (_domainName.Length - 4)); // for the .com TLD
+            DomainListResult result = _api.Domains.GetList("ALL", searchTerm, 1, 21, "NAME");
+            Assert.IsTrue(result.Domains.Length > 0);
+            Assert.IsTrue(result.Domains.Any(d => string.Equals(d.Name, _domainName)));
+        }
+
+
         [TestMethod, Ignore("Needs work - can only renew a domain so many times")]
         public void Test_renew()
         {
