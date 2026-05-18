@@ -1,0 +1,38 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build & Test (.NET ${{ matrix.dotnet-version }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        dotnet-version:
+          - "8.0.x"
+          - "10.0.x"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Restore dependencies
+        run: dotnet restore NameCheap.sln
+
+      - name: Build
+        run: dotnet build NameCheap.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test NameCheap.sln --configuration Release --no-build --verbosity normal
