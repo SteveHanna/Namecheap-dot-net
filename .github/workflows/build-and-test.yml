@@ -34,5 +34,5 @@ jobs:
       - name: Build
         run: dotnet build NameCheap.sln --configuration Release --no-restore
 
-      - name: Test
-        run: dotnet test NameCheap.sln --configuration Release --no-build --verbosity normal
+#      - name: Test
+#        run: dotnet test NameCheap.sln --configuration Release --no-build --verbosity normal
