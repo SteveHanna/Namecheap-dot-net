@@ -34,5 +34,6 @@ jobs:
       - name: Build
         run: dotnet build NameCheap.sln --configuration Release --no-restore
 
+# Temporarily disables tests because they require special configs
 #      - name: Test
 #        run: dotnet test NameCheap.sln --configuration Release --no-build --verbosity normal
